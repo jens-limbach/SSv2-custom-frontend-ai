@@ -11,6 +11,8 @@ The application showcases how easy it is to develop modern, feature-rich fronten
 Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
 <img src="https://raw.githubusercontent.com/jens-limbach/SSv2-extensibility-workshop/9e354c5e24b8f281dbabd657d3e6d2fccbc01ac1/images/Frontend-Finished.png">
 
+*This page is still a bit work in progress and the idea is to add a video that shows live the development process with AI and also demonstrates the final frontend application.*
+
 ## 📑 Table of Contents
 
 - [Features](#-features)
@@ -99,6 +101,34 @@ The application uses Basic Authentication to connect to both the CAP backend and
 
 ### Prerequisites
 - Node.js 20+ and npm
+- Git
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/jens-limbach/SSv2-custom-frontend-ai.git
+cd SSv2-custom-frontend-ai
+```
+
+### Configure Credentials
+
+1. Copy the credentials template file:
+```bash
+cp src/app/config/credentials.template.ts src/app/config/credentials.ts
+```
+
+2. Edit `src/app/config/credentials.ts` and add your actual credentials:
+```typescript
+export const CRM_CONFIG = {
+  baseUrl: 'https://myXXXXXX.demo.crm.cloud.sap',
+  username: 'YOUR_USERNAME',
+  password: 'YOUR_PASSWORD'
+};
+
+export const CAP_CONFIG = {
+  baseUrl: 'https://your-cap-backend.cfapps.eu10-004.hana.ondemand.com/sample-service/Samples'
+};
+```
 
 ### Installation
 
@@ -121,6 +151,25 @@ npm run build
 ```
 
 The build artifacts will be stored in the `dist/` directory.
+
+### Deploy to SAP BTP Cloud Foundry
+
+1. **Login to Cloud Foundry:**
+```bash
+cf login -a https://api.cf.eu10-004.hana.ondemand.com
+```
+
+2. **Push the application:**
+```bash
+cf push
+```
+
+The application will be deployed according to the configuration in `manifest.yml`. You can access your deployed application at the URL provided by Cloud Foundry after successful deployment.
+
+**Note:** Make sure you have:
+- Installed the [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+- Proper Cloud Foundry credentials and space access
+- A `manifest.yml` file in your project root (already included)
 
 ## 📖 Usage Guide
 
@@ -227,15 +276,23 @@ src/
 ✅ Reactive forms over template-driven  
 ✅ Class bindings instead of ngClass  
 ✅ Style bindings instead of ngStyle  
+✅ **Angular rules file** - Using `.github/copilot-instructions.md` for GitHub Copilot to follow Angular best practices
+
+### Using Angular Rules Files with AI Tools
+
+This project includes a `.github/copilot-instructions.md` file that provides GitHub Copilot with Angular-specific best practices and coding conventions. These rules files help AI assistants generate better, more idiomatic Angular code.
+
+**For other AI tools:**
+- **Cursor**: Use `.cursorrules` file
+- **Firebase Studio**: Use `.airules.md` file  
+- **JetBrains IDEs**: Use `.guidelines.md` file
+- **VS Code with other extensions**: Use `.instructions.md` file
+
+Learn more about AI-assisted Angular development: [Angular AI Development Guide](https://angular.dev/ai/develop-with-ai)
 
 ## 🎨 SAP Design Integration
 
 The application uses SAP Sales Cloud V2 web components and the SAP Horizon theme for a consistent enterprise look and feel that seamlessly integrates with SAP Sales Cloud.
-
-**Design Resources Loaded:**
-- `https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-global.css`
-- `https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-sap-horizon.css`
-- `https://stage.cxm-salescloud.com/modules/web-components/lib/cxm-components.017720c7.js`
 
 **Key Design Features:**
 - SAP Horizon color palette and spacing
@@ -261,7 +318,7 @@ This entire application was developed collaboratively using **GitHub Copilot** a
 - Created modal dialogs for create/edit operations
 - Added inline editing for quick updates
 
-**CRM Integration (45 minutes)**
+**CRM Integration (30 minutes)**
 - Connected to SAP Sales Cloud V2 APIs
 - Built entity selector component for related objects
 - Implemented CRM navigation via postMessage
