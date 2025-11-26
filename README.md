@@ -8,6 +8,9 @@ This project serves as a **step-by-step demonstration** of building a custom UI 
 
 The application showcases how easy it is to develop modern, feature-rich frontends that seamlessly integrate with SAP Sales Cloud V2's ecosystem using tools like GitHub Copilot.
 
+Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
+<img src="https://raw.githubusercontent.com/jens-limbach/SSv2-extensibility-workshop/9e354c5e24b8f281dbabd657d3e6d2fccbc01ac1/images/Frontend-Finished.png">
+
 ## 📑 Table of Contents
 
 - [Features](#-features)
