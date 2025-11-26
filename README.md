@@ -8,6 +8,20 @@ This project serves as a **step-by-step demonstration** of building a custom UI 
 
 The application showcases how easy it is to develop modern, feature-rich frontends that seamlessly integrate with SAP Sales Cloud V2's ecosystem using tools like GitHub Copilot.
 
+## 📑 Table of Contents
+
+- [Features](#-features)
+- [Technology Stack](#️-technology-stack)
+- [Backend Integration](#-backend-integration)
+- [Getting Started](#getting-started)
+- [Usage Guide](#-usage-guide)
+- [Project Structure](#-project-structure)
+- [Angular Best Practices](#angular-best-practices-implemented)
+- [SAP Design Integration](#-sap-design-integration)
+- [Built with GitHub Copilot](#-built-with-github-copilot)
+- [License Notes](#-license-notes)
+- [Related Resources](#-related-resources)
+
 ## ✨ Features
 
 ### Core Functionality
