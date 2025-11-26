@@ -1,0 +1,14 @@
+node_modules/
+src/
+e2e/
+.angular/
+.vscode/
+*.ts
+*.md
+!README.md
+tsconfig.json
+angular.json
+package.json
+package-lock.json
+.editorconfig
+.gitignore

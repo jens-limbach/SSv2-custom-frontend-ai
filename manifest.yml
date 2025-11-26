@@ -1,0 +1,11 @@
+---
+applications:
+- name: samplejl-ui
+  memory: 128M
+  disk_quota: 512M
+  random-route: true
+  buildpacks:
+    - staticfile_buildpack
+  path: ./dist/sample-jl-ui1/browser
+  env:
+    FORCE_HTTPS: true

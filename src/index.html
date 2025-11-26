@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sample Management</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- SAP Sales Cloud V2 Styles -->
+  <link rel="stylesheet" href="https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-global.css"/>
+  <link rel="stylesheet" href="https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-sap-horizon.css"/>
+  
+  <script>
+    // Navigation functions for CRM resources
+    function navigateToAccount(accountId) {
+      var payload = {operation: "navigation", params: {objectKey: accountId, routingKey: "mdaccount"}};
+      window.parent.postMessage(payload, '*');
+    }
+    
+    function navigateToOpportunity(opportunityId) {
+      var payload = {operation: "navigation", params: {objectKey: opportunityId, routingKey: "guidedselling", viewType: "details"}};
+      window.parent.postMessage(payload, '*');
+    }
+    
+    function navigateToProduct(productId) {
+      var payload = {operation: "navigation", params: {objectKey: productId, routingKey: "mdproduct", viewType: "details"}};
+      window.parent.postMessage(payload, '*');
+    }
+    
+    function navigateToEmployee(employeeId) {
+      var payload = {operation: "navigation", params: {objectKey: employeeId, routingKey: "mdemployee", viewType: "details"}};
+      window.parent.postMessage(payload, '*');
+    }
+    
+    function navigateToServiceCase(serviceCaseId) {
+      var payload = {operation: "navigation", params: {objectKey: serviceCaseId, routingKey: "case", viewType: "details"}};
+      window.parent.postMessage(payload, '*');
+    }
+    
+    function navigateToSample(sampleId) {
+      var payload = {operation: "navigation", params: {objectKey: sampleId, routingKey: "customer.ssc.CUS8735", viewType: "details"}};
+      window.parent.postMessage(payload, '*');
+    }
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+  
+  <!-- SAP Sales Cloud V2 Web Components -->
+  <script type="module" src="https://stage.cxm-salescloud.com/modules/web-components/lib/cxm-components.017720c7.js"></script>
+</body>
+</html>

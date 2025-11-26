@@ -1,0 +1,141 @@
+.code-selector {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--sapTextColor, #32363a);
+
+    .required {
+      color: var(--sapErrorColor, #b00);
+      margin-left: 0.25rem;
+    }
+  }
+}
+
+.selector-wrapper {
+  position: relative;
+}
+
+.selector-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--sapField_BorderColor, #89919a);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background: var(--sapField_Background, #fff);
+  color: var(--sapField_TextColor, #32363a);
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--sapField_Focus_BorderColor, #0854a0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.selected-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid var(--sapField_BorderColor, #89919a);
+  border-radius: 4px;
+  background: var(--sapField_Background, #fff);
+  min-height: 38px;
+
+  .selected-text {
+    flex: 1;
+    font-size: 0.875rem;
+    color: var(--sapField_TextColor, #32363a);
+  }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--sapTextColor, #32363a);
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+      color: var(--sapErrorColor, #b00);
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 2px;
+  background: var(--sapBackgroundColor, #fff);
+  border: 1px solid var(--sapField_BorderColor, #89919a);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-list {
+  overflow-y: auto;
+  max-height: 250px;
+}
+
+.dropdown-item {
+  padding: 0.625rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--sapList_BorderColor, #e5e5e5);
+  transition: background-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &.focused {
+    background-color: var(--sapList_Hover_Background, #f5f5f5);
+  }
+
+  .option-code {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--sapTextColor, #32363a);
+    min-width: 60px;
+  }
+
+  .option-name {
+    font-size: 0.875rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    flex: 1;
+  }
+}
+
+.dropdown-empty {
+  padding: 1rem;
+  text-align: center;
+  color: var(--sapContent_LabelColor, #6a6d70);
+  font-size: 0.875rem;
+}

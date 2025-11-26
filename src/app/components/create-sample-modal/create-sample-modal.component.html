@@ -1,0 +1,193 @@
+@if (isOpen()) {
+  <div class="modal-overlay" (click)="close()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Create New Sample</h2>
+        <button class="close-btn" (click)="close()" type="button">&times;</button>
+      </div>
+
+      <form [formGroup]="sampleForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          @if (errorMessage()) {
+            <div class="error-message">{{ errorMessage() }}</div>
+          }
+          
+          @if (opportunityContext()) {
+            <div class="info-message">
+              Creating sample for opportunity. Account and product selection are pre-filled based on the opportunity.
+            </div>
+          }
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="sampleName">Sample Name *</label>
+              <input id="sampleName" type="text" formControlName="sampleName" />
+              @if (sampleForm.get('sampleName')?.invalid && sampleForm.get('sampleName')?.touched) {
+                <span class="field-error">Sample name is required</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="status">Status</label>
+              <select id="status" formControlName="status">
+                <option value="OPEN">Open</option>
+                <option value="INPROGRESS">In Progress</option>
+                <option value="DELIVERED">Delivered</option>
+                <option value="RETURNED">Returned</option>
+                <option value="OVERDUE">Overdue</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="sampleType">Sample Type</label>
+              <select id="sampleType" formControlName="sampleType">
+                <option value="WITHPACKAGING">With Packaging</option>
+                <option value="WITHOUTPACKAGING">Without Packaging</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="dueDate">Due Date *</label>
+              <input id="dueDate" type="date" formControlName="dueDate" />
+              @if (sampleForm.get('dueDate')?.invalid && sampleForm.get('dueDate')?.touched) {
+                <span class="field-error">Due date is required</span>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="costContent">Cost</label>
+              <input id="costContent" type="number" step="0.01" formControlName="costContent" />
+            </div>
+
+            <div class="form-field">
+              <app-code-selector
+                label="Currency"
+                placeholder="Search currencies..."
+                [options]="currencies"
+                [selectedCode]="sampleForm.get('costCurrency')?.value"
+                (codeSelected)="sampleForm.patchValue({ costCurrency: $event })"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="numberOfSamplesContent">Number of Samples</label>
+              <input id="numberOfSamplesContent" type="number" formControlName="numberOfSamplesContent" />
+            </div>
+
+            <div class="form-field">
+              <app-code-selector
+                label="UOM"
+                placeholder="Search units..."
+                [options]="unitsOfMeasure"
+                [selectedCode]="sampleForm.get('numberOfSamplesUom')?.value"
+                (codeSelected)="sampleForm.patchValue({ numberOfSamplesUom: $event })"
+              />
+            </div>
+
+            <div class="form-field full-width">
+              <label for="shipToAddress">Ship to Address</label>
+              <input id="shipToAddress" type="text" formControlName="shipToAddress" />
+            </div>
+
+            <div class="form-field">
+              <app-entity-selector
+                label="Account"
+                placeholder="Search accounts..."
+                [entities]="accounts()"
+                [selectedId]="sampleForm.get('accountId')?.value"
+                (entitySelected)="onAccountSelected($event)"
+              />
+            </div>
+
+            <div class="form-field">
+              <app-entity-selector
+                label="Product"
+                placeholder="Search products..."
+                [entities]="products()"
+                [selectedId]="sampleForm.get('productId')?.value"
+                (entitySelected)="sampleForm.patchValue({ productId: $event })"
+              />
+            </div>
+
+            <div class="form-field">
+              <app-entity-selector
+                label="Employee"
+                placeholder="Search employees..."
+                [entities]="employees()"
+                [selectedId]="sampleForm.get('employeeId')?.value"
+                (entitySelected)="sampleForm.patchValue({ employeeId: $event })"
+              />
+            </div>
+
+            <div class="form-field">
+              <app-entity-selector
+                label="Opportunity"
+                placeholder="Search opportunities..."
+                [entities]="opportunities()"
+                [selectedId]="sampleForm.get('opportunityId')?.value"
+                (entitySelected)="sampleForm.patchValue({ opportunityId: $event })"
+              />
+            </div>
+
+            <div class="form-field">
+              <app-entity-selector
+                label="Service Case"
+                placeholder="Search service cases..."
+                [entities]="serviceCases()"
+                [selectedId]="sampleForm.get('serviceCaseId')?.value"
+                (entitySelected)="sampleForm.patchValue({ serviceCaseId: $event })"
+              />
+            </div>
+
+            <div class="form-field checkbox-field">
+              <input id="hazardous" type="checkbox" formControlName="hazardous" />
+              <label for="hazardous">Hazardous</label>
+            </div>
+
+            @if (sampleForm.get('hazardous')?.value) {
+              <div class="form-field full-width">
+                <label for="hazardousReason">Hazardous Reason</label>
+                <input id="hazardousReason" type="text" formControlName="hazardousReason" />
+              </div>
+            }
+
+            @if (sampleForm.get('sampleType')?.value === 'WITHPACKAGING') {
+              <div class="form-field">
+                <label for="packagingMaterial">Packaging Material</label>
+                <select id="packagingMaterial" formControlName="packagingMaterial">
+                  <option value="">None</option>
+                  <option value="PLASTIC">Plastic</option>
+                  <option value="METAL">Metal</option>
+                  <option value="OTHERMATERIAL">Other Material</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="packagingHeight">Packaging Height</label>
+                <input id="packagingHeight" type="number" step="0.01" formControlName="packagingHeight" />
+              </div>
+
+              <div class="form-field">
+                <label for="packagingWidth">Packaging Width</label>
+                <input id="packagingWidth" type="number" step="0.01" formControlName="packagingWidth" />
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" (click)="close()" [disabled]="isSubmitting()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-primary" [disabled]="isSubmitting()">
+            @if (isSubmitting()) {
+              Creating...
+            } @else {
+              Create Sample
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

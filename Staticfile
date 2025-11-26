@@ -1,0 +1,3 @@
+root: dist/sample-jl-ui1/browser
+location_include: includes/*.conf
+pushstate: enabled

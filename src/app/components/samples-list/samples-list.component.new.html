@@ -1,0 +1,309 @@
+<div class="samples-container">
+  <div class="header">
+    <h1>Sample Management</h1>
+    <div class="header-actions">
+      <button class="btn-settings" (click)="openColumnConfig()" title="Configure columns">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M17.43 10.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C12.46.23 12.25 0 12 0h-4c-.25 0-.46.23-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.19.24.42.49.42h4c.25 0 .46-.23.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM10 13c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/>
+        </svg>
+      </button>
+      <button class="btn-create" (click)="openCreateModal()">Create Sample</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        placeholder="Search samples..." 
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+      />
+    </div>
+    
+    @if (hasActiveFilters()) {
+      <div class="active-filters">
+        <span class="filter-label">Active Filters:</span>
+        @if (filterAccountId()) {
+          <span class="filter-badge">
+            Account: {{ filterAccountId() }}
+            <button class="filter-remove" (click)="filterAccountId.set(null)" title="Remove filter">×</button>
+          </span>
+        }
+        @if (filterOpportunityId()) {
+          <span class="filter-badge">
+            Opportunity: {{ filterOpportunityId() }}
+            <button class="filter-remove" (click)="filterOpportunityId.set(null)" title="Remove filter">×</button>
+          </span>
+        }
+        <button class="btn-clear-filters" (click)="clearFilters()">Clear All Filters</button>
+      </div>
+    }
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Loading samples...</div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">{{ errorMessage() }}</div>
+  }
+
+  @if (!isLoading() && !errorMessage()) {
+    <div class="table-container">
+      <table class="samples-table">
+        <thead>
+          <tr>
+            @if (isColumnVisible('sampleName')) {
+              <th (click)="onSort('sampleName')" class="sortable">
+                Sample Name {{ getSortIcon('sampleName') }}
+              </th>
+            }
+            @if (isColumnVisible('status')) {
+              <th (click)="onSort('status')" class="sortable">
+                Status {{ getSortIcon('status') }}
+              </th>
+            }
+            @if (isColumnVisible('dueDate')) {
+              <th (click)="onSort('dueDate')" class="sortable">
+                Due Date {{ getSortIcon('dueDate') }}
+              </th>
+            }
+            @if (isColumnVisible('shipToAddress')) {
+              <th>Ship To Address</th>
+            }
+            @if (isColumnVisible('hazardous')) {
+              <th>Hazardous</th>
+            }
+            @if (isColumnVisible('hazardousReason')) {
+              <th>Hazardous Reason</th>
+            }
+            @if (isColumnVisible('sampleType')) {
+              <th>Sample Type</th>
+            }
+            @if (isColumnVisible('packagingWidth')) {
+              <th>Packaging Width</th>
+            }
+            @if (isColumnVisible('packagingHeight')) {
+              <th>Packaging Height</th>
+            }
+            @if (isColumnVisible('packagingMaterial')) {
+              <th>Packaging Material</th>
+            }
+            @if (isColumnVisible('costOfSample')) {
+              <th (click)="onSort('costOfSample.content')" class="sortable">
+                Cost {{ getSortIcon('costOfSample.content') }}
+              </th>
+            }
+            @if (isColumnVisible('numberOfSamples')) {
+              <th>Quantity</th>
+            }
+            @if (isColumnVisible('currency')) {
+              <th>Currency</th>
+            }
+            @if (isColumnVisible('uom')) {
+              <th>UOM</th>
+            }
+            @if (isColumnVisible('account')) {
+              <th (click)="onSort('account.name')" class="sortable">
+                Account {{ getSortIcon('account.name') }}
+              </th>
+            }
+            @if (isColumnVisible('product')) {
+              <th (click)="onSort('product.name')" class="sortable">
+                Product {{ getSortIcon('product.name') }}
+              </th>
+            }
+            @if (isColumnVisible('employee')) {
+              <th (click)="onSort('employee.name')" class="sortable">
+                Employee {{ getSortIcon('employee.name') }}
+              </th>
+            }
+            @if (isColumnVisible('opportunity')) {
+              <th>Opportunity</th>
+            }
+            @if (isColumnVisible('serviceCase')) {
+              <th>Service Case</th>
+            }
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (sample of filteredAndSortedSamples(); track sample.id) {
+            <tr>
+              @if (isColumnVisible('sampleName')) {
+                <td (dblclick)="startEditCell(sample, 'sampleName')">
+                  @if (isEditingCell(sample.id!, 'sampleName')) {
+                    <input 
+                      type="text" 
+                      [value]="editValue()"
+                      (input)="editValue.set($any($event.target).value)"
+                      (blur)="saveInlineEdit(sample, 'sampleName')"
+                      (keydown.enter)="saveInlineEdit(sample, 'sampleName')"
+                      (keydown.escape)="cancelEdit()"
+                      class="inline-edit"
+                    />
+                  } @else {
+                    {{ sample.sampleName }}
+                  }
+                </td>
+              }
+              @if (isColumnVisible('status')) {
+                <td (dblclick)="startEditCell(sample, 'status')">
+                  @if (isEditingCell(sample.id!, 'status')) {
+                    <select 
+                      [value]="editValue()"
+                      (change)="editValue.set($any($event.target).value)"
+                      (blur)="saveInlineEdit(sample, 'status')"
+                      class="inline-edit"
+                    >
+                      <option value="OPEN">Open</option>
+                      <option value="INPROGRESS">In Progress</option>
+                      <option value="DELIVERED">Delivered</option>
+                    </select>
+                  } @else {
+                    <span [class]="'status-badge status-' + sample.status.toLowerCase()">
+                      {{ sample.status }}
+                    </span>
+                  }
+                </td>
+              }
+              @if (isColumnVisible('dueDate')) {
+                <td>{{ sample.dueDate }}</td>
+              }
+              @if (isColumnVisible('shipToAddress')) {
+                <td (dblclick)="startEditCell(sample, 'shipToAddress')">
+                  @if (isEditingCell(sample.id!, 'shipToAddress')) {
+                    <input 
+                      type="text" 
+                      [value]="editValue()"
+                      (input)="editValue.set($any($event.target).value)"
+                      (blur)="saveInlineEdit(sample, 'shipToAddress')"
+                      (keydown.enter)="saveInlineEdit(sample, 'shipToAddress')"
+                      (keydown.escape)="cancelEdit()"
+                      class="inline-edit"
+                    />
+                  } @else {
+                    {{ sample.shipToAddress || 'N/A' }}
+                  }
+                </td>
+              }
+              @if (isColumnVisible('hazardous')) {
+                <td>{{ sample.hazardous ? 'Yes' : 'No' }}</td>
+              }
+              @if (isColumnVisible('hazardousReason')) {
+                <td>{{ sample.hazardousReason || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('sampleType')) {
+                <td>{{ sample.sampleType || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('packagingWidth')) {
+                <td>{{ sample.packagingWidth || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('packagingHeight')) {
+                <td>{{ sample.packagingHeight || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('packagingMaterial')) {
+                <td>{{ sample.packagingMaterial || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('costOfSample')) {
+                <td>
+                  @if (sample.costOfSample) {
+                    {{ sample.costOfSample.content }} {{ sample.costOfSample.currencyCode }}
+                  } @else {
+                    N/A
+                  }
+                </td>
+              }
+              @if (isColumnVisible('numberOfSamples')) {
+                <td>
+                  @if (sample.numberOfSamples) {
+                    {{ sample.numberOfSamples.quantity }} {{ sample.numberOfSamples.unitOfMeasure }}
+                  } @else {
+                    N/A
+                  }
+                </td>
+              }
+              @if (isColumnVisible('currency')) {
+                <td>{{ sample.currencyCode || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('uom')) {
+                <td>{{ sample.uomCode || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('account')) {
+                <td>{{ sample.account?.name || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('product')) {
+                <td>{{ sample.product?.name || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('employee')) {
+                <td>{{ sample.employee?.name || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('opportunity')) {
+                <td>{{ sample.opportunity?.name || 'N/A' }}</td>
+              }
+              @if (isColumnVisible('serviceCase')) {
+                <td>{{ sample.serviceCase?.name || 'N/A' }}</td>
+              }
+              <td class="actions">
+                <button class="btn-icon btn-edit" (click)="openEditModal(sample)" title="Edit">
+                  ✏️
+                </button>
+                <button class="btn-icon btn-delete" (click)="deleteSample(sample)" title="Delete">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="20" class="empty-state">No samples found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+<!-- Column Configuration Dialog -->
+@if (showColumnConfigDialog()) {
+  <div class="modal-overlay" (click)="closeColumnConfig()">
+    <div class="column-config-dialog" (click)="$event.stopPropagation()">
+      <div class="dialog-header">
+        <h3>Configure Columns</h3>
+        <button class="btn-close" (click)="closeColumnConfig()" title="Close">&times;</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-actions">
+          <button class="btn-secondary" (click)="showAllColumns()">Show All</button>
+          <button class="btn-secondary" (click)="hideAllColumns()">Hide All</button>
+        </div>
+        <div class="column-list">
+          @for (column of availableColumns; track column.key) {
+            <label class="column-item">
+              <input 
+                type="checkbox" 
+                [checked]="isColumnVisible(column.key)"
+                (change)="toggleColumnVisibility(column.key)"
+                [disabled]="column.key === 'sampleName' && isColumnVisible('sampleName')"
+              />
+              <span>{{ column.label }}</span>
+            </label>
+          }
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="btn-primary" (click)="closeColumnConfig()">Done</button>
+      </div>
+    </div>
+  </div>
+}
+
+<app-create-sample-modal 
+  (sampleCreated)="loadSamples()"
+/>
+
+<app-edit-sample-modal 
+  [sample]="sampleToEdit()"
+  (sampleUpdated)="loadSamples()"
+/>

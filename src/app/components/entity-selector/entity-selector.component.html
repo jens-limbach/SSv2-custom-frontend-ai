@@ -1,0 +1,64 @@
+<div class="entity-selector">
+  <label>
+    {{ label() }}
+    @if (required()) {
+      <span class="required">*</span>
+    }
+  </label>
+  
+  <div class="selector-wrapper">
+    @if (selectedEntity()) {
+      <div class="selected-display">
+        <span class="selected-text">{{ displayValue() }}</span>
+        @if (!disabled()) {
+          <button 
+            type="button" 
+            class="clear-btn" 
+            (click)="clearSelection()"
+            title="Clear selection"
+          >
+            ×
+          </button>
+        }
+      </div>
+    } @else {
+      <input
+        type="text"
+        class="selector-input"
+        [placeholder]="placeholder()"
+        [value]="searchTerm()"
+        [disabled]="disabled()"
+        (input)="onInputChange($any($event.target).value)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        (keydown)="onKeyDown($event)"
+        autocomplete="off"
+      />
+    }
+
+    @if (isOpen() && !disabled() && filteredEntities().length > 0) {
+      <div class="dropdown">
+        <div class="dropdown-list">
+          @for (entity of filteredEntities(); track entity.id; let i = $index) {
+            <div
+              class="dropdown-item"
+              [class.focused]="focusedIndex() === i"
+              (click)="selectEntity(entity)"
+            >
+              <div class="entity-name">{{ entity.displayName }}</div>
+              @if (entity.displayId) {
+                <div class="entity-id">{{ entity.displayId }}</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (isOpen() && !disabled() && filteredEntities().length === 0) {
+      <div class="dropdown">
+        <div class="dropdown-empty">No results found</div>
+      </div>
+    }
+  </div>
+</div>

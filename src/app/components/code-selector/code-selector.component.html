@@ -1,0 +1,62 @@
+<div class="code-selector">
+  <label>
+    {{ label() }}
+    @if (required()) {
+      <span class="required">*</span>
+    }
+  </label>
+  
+  <div class="selector-wrapper">
+    @if (selectedOption()) {
+      <div class="selected-display">
+        <span class="selected-text">{{ displayValue() }}</span>
+        @if (!disabled()) {
+          <button 
+            type="button" 
+            class="clear-btn" 
+            (click)="clearSelection()"
+            title="Clear selection"
+          >
+            ×
+          </button>
+        }
+      </div>
+    } @else {
+      <input
+        type="text"
+        class="selector-input"
+        [placeholder]="placeholder()"
+        [value]="searchTerm()"
+        [disabled]="disabled()"
+        (input)="onInputChange($any($event.target).value)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        (keydown)="onKeyDown($event)"
+        autocomplete="off"
+      />
+    }
+
+    @if (isOpen() && !disabled() && filteredOptions().length > 0) {
+      <div class="dropdown">
+        <div class="dropdown-list">
+          @for (option of filteredOptions(); track option.code; let i = $index) {
+            <div
+              class="dropdown-item"
+              [class.focused]="focusedIndex() === i"
+              (click)="selectOption(option)"
+            >
+              <span class="option-code">{{ option.code }}</span>
+              <span class="option-name">{{ option.name }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (isOpen() && !disabled() && filteredOptions().length === 0) {
+      <div class="dropdown">
+        <div class="dropdown-empty">No results found</div>
+      </div>
+    }
+  </div>
+</div>
