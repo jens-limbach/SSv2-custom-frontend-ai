@@ -15,6 +15,7 @@ Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
 
 ## 📑 Table of Contents
 
+- [Watch the Development Process](#-watch-the-development-process)
 - [Try It Yourself](#-try-it-yourself)
 - [Features](#-features)
 - [Technology Stack](#️-technology-stack)
@@ -27,6 +28,19 @@ Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
 - [Built with GitHub Copilot](#-built-with-github-copilot)
 - [License Notes](#-license-notes)
 - [Related Resources](#-related-resources)
+- [Extensions - Wanna Know More?](#-extensions---wanna-know-more)
+
+## 🎥 Watch the Development Process
+
+Want to see how this application was built from scratch using AI? Watch the complete development process in this video:
+
+**[Building a Custom Frontend for SAP Sales Cloud V2 with GitHub Copilot](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_17l2ao1d)**
+
+In this video, you'll see:
+- 🤖 **Live AI-assisted development** - Watch GitHub Copilot generate code in real-time
+- 🛠️ **Complete build process** - From initial setup to production-ready application
+- 🔗 **SAP Sales Cloud integration** - How to embed the custom frontend into SAP Sales and Service Cloud V2
+- 💡 **Best practices and tips** - Learn effective prompting techniques for AI-assisted development
 
 ## 🎯 Try It Yourself!
 
@@ -390,3 +404,20 @@ This is a **demonstration project** created as a tutorial companion. For commerc
 ## 🙏 Acknowledgments
 
 Built as a hands-on demonstration of modern frontend development for SAP Sales Cloud V2, showcasing the power of AI-assisted development with GitHub Copilot.
+
+## 🚀 Extensions - Wanna Know More?
+
+Are you interested how you can extend SAP Sales and Service Cloud Version 2? I cover each recommended possibility from in-app to pro-code in my videos and hands-on tutorials!
+
+The videos show you step-by-step how to do it and not only the "finished" extensions and the tutorials complement those by giving you each single step in order to try it out yourself or to use it for a hands-on workshop! All you need is the curiosity to learn something new 😊
+
+### Topics:
+
+- **Basic customizing** ([Video 3m](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_wt8hh8ye))
+- **In-App Extensibility** ([Video 5m](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_w7vhb24g))
+- **Extensibility Workshop** ([Video 17m](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_52m7tuyh) | [Hands-On Tutorial](https://github.com/jens-limbach/SSv2-Workshop))
+  - First Side-by-Side app on BTP
+  - Custom Logic via a Microservice (trigger via Autoflow)
+  - Custom Key Metrics
+- **Building a Custom Object with standard frontend** ([Video 18m](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_j5slmbgc) | [Hands-On Tutorial](https://github.com/jens-limbach/SSv2-custom-sample-object))
+- **Building a custom frontend using AI** ([Video 15m](https://sapvideo.cfapps.eu10-004.hana.ondemand.com/?entry_id=1_17l2ao1d) | [Hands-On Tutorial](https://github.com/jens-limbach/SSv2-custom-frontend-ai))
