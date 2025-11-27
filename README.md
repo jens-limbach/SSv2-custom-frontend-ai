@@ -15,6 +15,7 @@ Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
 
 ## 📑 Table of Contents
 
+- [Try It Yourself](#-try-it-yourself)
 - [Features](#-features)
 - [Technology Stack](#️-technology-stack)
 - [Backend Integration](#-backend-integration)
@@ -26,6 +27,18 @@ Screenshot of the final frontend embedded in SAP Sales and Service Cloud V2:
 - [Built with GitHub Copilot](#-built-with-github-copilot)
 - [License Notes](#-license-notes)
 - [Related Resources](#-related-resources)
+
+## 🎯 Try It Yourself!
+
+Want to build your own custom frontend with AI assistance? Check out **[MY_PROMPT.md](./MY_PROMPT.md)** to see the exact prompt I used with GitHub Copilot to create this entire application!
+
+The prompt demonstrates how to:
+- Structure detailed requirements for AI assistants
+- Provide API examples and payload structures
+- Specify design requirements and business logic
+- Request integration with external systems (CRM)
+
+Use it as a template for your own projects - just replace the endpoints, data model, and business rules with your own requirements. The more specific you are, the better results you'll get!
 
 ## ✨ Features
 
