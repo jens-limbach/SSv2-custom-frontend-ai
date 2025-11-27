@@ -8,24 +8,7 @@ I need an angular frontend which has the following features: table view to displ
 
 ## Design Requirements
 
-For the design please consider the following stylesheets so that it looks similar to the UI of SAP Sales Cloud Version 2:
-
-1. Import web component bundle into your index.html body
-```html
-<script type='module' src='https://stage.cxm-salescloud.com/modules/web-components/lib/cxm-components.017720c7.js'></script>
-```
-
-2. Import global styles into your index.html head
-```html
-<link rel="stylesheet" href="https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-global.css"/>
-```
-
-3. Import theme styles into your index.html head
-```html
-<link rel="stylesheet" href="https://stage.cxm-salescloud.com/modules/web-components/assets/css/css-sap-horizon.css"/>
-```
-
-4. Start using the custom elements
+For the design please consider the look & feel of SAP Sales and Service Cloud Version 2 which uses the colors of the SAP Horizon theme.
 
 General make sure that all navigation links are styled with the SAP Horizon theme colors (blue links that underline on hover) and the same also for buttons, icons etc.
 
