@@ -24,12 +24,12 @@
     }
     
     function navigateToProduct(productId) {
-      var payload = {operation: "navigation", params: {objectKey: productId, routingKey: "mdproduct", viewType: "details"}};
+      var payload = {operation: "navigation", params: {objectKey: productId, routingKey: "mdproduct", viewType: "quickview"}};
       window.parent.postMessage(payload, '*');
     }
     
     function navigateToEmployee(employeeId) {
-      var payload = {operation: "navigation", params: {objectKey: employeeId, routingKey: "mdemployee", viewType: "details"}};
+      var payload = {operation: "navigation", params: {objectKey: employeeId, routingKey: "mdemployee", viewType: "quickview"}};
       window.parent.postMessage(payload, '*');
     }
     
