@@ -1,3 +1,7 @@
+📚 **Tutorial Series:** [Part 1: Building a Custom Object](https://github.com/jens-limbach/SSv2-custom-sample-object) ← Previous | **Part 2: Custom Frontend with AI** (You are here)
+
+---
+
 # Sample Management - Custom Frontend for SAP Sales Cloud V2
 
 A modern Angular 20+ application demonstrating how to build a custom frontend for SAP Sales and Service Cloud V2. This sample application showcases full CRUD operations, CRM integration, advanced UI features, and analytics—all built with the latest Angular features including standalone components, signals, and the new control flow syntax.
